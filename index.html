@@ -16,7 +16,8 @@
 :root{--ink:#1c1210;--burgundy:#6b1c28;--deep:#3d1518;--gold:#c4a574;--softgold:#e3d2b3;--cream:#f6f0e6;--ivory:#fbf7f1;--sand:#d9cbb8;--wa:#25d366;--wa-dark:#1ebe5a;--serif:"Cormorant Garamond",Georgia,serif;--sans:"Outfit",Arial,sans-serif}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
-body{margin:0;background:var(--ivory);color:var(--ink);font-family:var(--sans);font-weight:300;overflow-x:hidden;line-height:1.5}
+body{margin:0;background:var(--ivory);color:var(--ink);font-family:var(--sans);font-weight:300;overflow-x:hidden;line-height:1.5;max-width:100vw;min-height:100%}
+html{min-height:100%}
 button,input{font:inherit}
 button{cursor:pointer}
 a{color:inherit;text-decoration:none}
@@ -124,9 +125,10 @@ h1,h2,h3,p{margin-top:0}
 .product-card:hover .quick-add{opacity:1;transform:translateY(0)}
 .product-info{padding-top:15px}
 .product-meta{display:flex;justify-content:space-between;gap:8px;align-items:start}
-.product-name{font:500 21px/1.05 var(--serif);margin:0 0 8px}
+.product-meta>div{min-width:0;flex:1 1 auto}
+.product-name{font:500 21px/1.05 var(--serif);margin:0 0 8px;overflow-wrap:break-word;word-break:break-word}
 .product-category{font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:#85766a}
-.price{font-size:12px;white-space:nowrap}
+.price{font-size:12px;white-space:nowrap;flex:0 0 auto;text-align:right}
 .price del{color:#a89a8b;margin-right:5px}
 .stars{color:#a78750;font-size:11px;letter-spacing:.1em;margin-top:8px}
 
@@ -204,7 +206,22 @@ h1,h2,h3,p{margin-top:0}
 .newsletter input{min-width:0;background:transparent;border:0;border-bottom:1px solid #ffffff5c;color:white;padding:10px 0;outline:0;font-size:12px;flex:1}
 .newsletter button{border:0;background:none;color:var(--softgold);font-size:9px;letter-spacing:.15em;text-transform:uppercase;white-space:nowrap}
 
-.wa-float{position:fixed;right:24px;bottom:24px;z-index:35;display:flex;align-items:center;gap:11px;background:var(--wa);color:#fff;padding:16px 22px 16px 18px;border-radius:50px;box-shadow:0 12px 32px rgba(37,211,102,.4),0 4px 14px rgba(0,0,0,.15);font-size:11px;letter-spacing:.14em;text-transform:uppercase;font-weight:500;transition:transform .25s cubic-bezier(.22,1,.36,1),background .25s,box-shadow .25s;text-decoration:none}
+/* ============ WHATSAPP FLOAT (fixed safe positioning) ============ */
+.wa-float{
+  position:fixed;
+  right:max(16px,env(safe-area-inset-right));
+  bottom:max(16px,env(safe-area-inset-bottom));
+  z-index:35;
+  display:flex;align-items:center;gap:11px;
+  background:var(--wa);color:#fff;
+  padding:16px 22px 16px 18px;
+  border-radius:50px;
+  box-shadow:0 12px 32px rgba(37,211,102,.4),0 4px 14px rgba(0,0,0,.15);
+  font-size:11px;letter-spacing:.14em;text-transform:uppercase;font-weight:500;
+  transition:transform .25s cubic-bezier(.22,1,.36,1),background .25s,box-shadow .25s;
+  text-decoration:none;
+  max-width:calc(100vw - 32px);
+}
 .wa-float:hover{background:var(--wa-dark);transform:translateY(-3px);box-shadow:0 16px 40px rgba(37,211,102,.5),0 6px 18px rgba(0,0,0,.18)}
 .wa-float svg{width:24px;height:24px;flex-shrink:0;display:block}
 .wa-float .wa-label{white-space:nowrap}
@@ -262,6 +279,9 @@ h1,h2,h3,p{margin-top:0}
   .product-category{font-size:8px;letter-spacing:.1em}
   .price{font-size:11px}
   .price del{margin-right:4px}
+  .product-meta{flex-wrap:wrap}
+  .product-meta>div{flex:1 1 100%}
+  .price{width:100%;text-align:left;margin-top:4px}
   .product-photo{aspect-ratio:.72}
   .quick-add{opacity:1;transform:none;left:7px;right:7px;bottom:7px;padding:10px 4px;font-size:8px;letter-spacing:.12em}
   .badge{font-size:7px;padding:6px 8px;top:10px;left:10px;letter-spacing:.12em}
@@ -288,7 +308,14 @@ h1,h2,h3,p{margin-top:0}
   .cart-line img{width:68px;height:86px}
   .cart-line h3{font-size:16px}
   .toast{bottom:96px;font-size:10px;padding:12px 18px}
-  .wa-float{right:16px;bottom:16px;padding:15px;border-radius:50%;width:58px;height:58px;justify-content:center;gap:0}
+  .wa-float{
+    right:max(16px,env(safe-area-inset-right));
+    bottom:max(16px,env(safe-area-inset-bottom));
+    padding:15px;border-radius:50%;
+    width:58px;height:58px;
+    justify-content:center;gap:0;
+    max-width:calc(100vw - 32px);
+  }
   .wa-float .wa-label{display:none}
   .wa-float svg{width:28px;height:28px}
 }
